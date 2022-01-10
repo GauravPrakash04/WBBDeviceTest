@@ -38,7 +38,7 @@ public class Test001_NokiaFastMileTest {
 
 		String Overview5GConnectionStatus=null;
 		String Overview4GConnectionStatus=null;
-
+		
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\gaurav.prakash\\OneDrive - 2degrees New Zealand Limited\\Gaurav 2 Degrees\\Projects\\Automation GP\\chromedriver_win32\\chromedriver.exe");
 
@@ -56,13 +56,14 @@ public class Test001_NokiaFastMileTest {
 		 driver.findElement(By.xpath("//a[text()=\" Cellular \"]")).click();
 		 Thread.sleep(1000);
 		 driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).click(); 
-		 driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).
-		 sendKeys("admin"); Thread.sleep(1000);
+		 driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).sendKeys("admin");
+		 Thread.sleep(1000);
 		 driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).click(); 
-		 driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).
-		 sendKeys("daa9828399"); Thread.sleep(1000);
+		 driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).sendKeys("daa9828399"); 
+		 Thread.sleep(1000);
 		 driver.findElement(By.xpath("//span[text()=\"Log in\"]")).click();
 		 Thread.sleep(4000);
+		 
 		 
 		 //Click on 5G Tab 
 		 Thread.sleep(2000);
@@ -71,50 +72,40 @@ public class Test001_NokiaFastMileTest {
 		 //Fetch 5G Status 
 		 System.out.println("Fetching 5G information");
 		 Thread.sleep(2000); 
-		 Status5G_Nokia = driver.findElement(By.xpath(
-		 "//div[text()=\"5G\"]/ancestor::mat-tab-header/following-sibling::div/mat-tab-body/div/div/div/div"
-		 )).getText();
+		 Status5G_Nokia = driver.findElement(By.xpath("//div[text()=\"5G\"]/ancestor::mat-tab-header/following-sibling::div/mat-tab-body/div/div/div/div")).getText();
 		 System.out.println("The Status of 5G connection is : "+Status5G_Nokia);
 		 
 		 //Fetch 5G PCI 
 		 Thread.sleep(1000); 
-		 PCIValue5G_Nokia =
-		driver.findElement(By.xpath("//div[@id=\"5gpci\"]")).getText();
+		 PCIValue5G_Nokia = driver.findElement(By.xpath("//div[@id=\"5gpci\"]")).getText();
 		 System.out.println("The PCI Value for 5G is : "+PCIValue5G_Nokia);
 		 
 		 //Fetch Supported Bands 
 		 Thread.sleep(1000); 
-		 Band5G_Nokia =
-		 driver.findElement(By.xpath("//div[@id=\"5gband\"]")).getText();
+		 Band5G_Nokia = driver.findElement(By.xpath("//div[@id=\"5gband\"]")).getText();
 		 System.out.println("The supported 5G band is : "+Band5G_Nokia);
 		 
 		//Getting to 4G TAB 
 		 System.out.println("Fetching 4G information");
 		 Thread.sleep(1000);
 		  driver.findElement(By.xpath("//div[text()=\"4G\"]")).click();
-		 
+    	
+		  
 		  //Fetch 4G Status 
 		  Thread.sleep(2000); 
-		  Status4G_Nokia =
-		 driver.findElement(By.xpath(
-		 "//div[text()=\"4G\"]/ancestor::mat-tab-header/following-sibling::div/mat-tab-body/div/div/div/div"
-		 )).getText();
-		  System.out.println("The Status of 4G Primary connection is : "+Status4G_Nokia
-		 );
+		  Status4G_Nokia = driver.findElement(By.xpath("//div[text()=\"4G\"]/ancestor::mat-tab-header/following-sibling::div/mat-tab-body/div/div/div/div")).getText();
+		  System.out.println("The Status of 4G Primary connection is : "+Status4G_Nokia);
 		 
 		 //Fetch 4G PCI 
 		  Thread.sleep(1000); 
-		  PCIValue4G_Nokia =
-		  driver.findElement(By.xpath("//div[@id=\"4gpci\"]")).getText();
+		  PCIValue4G_Nokia = driver.findElement(By.xpath("//div[@id=\"4gpci\"]")).getText();
 		  System.out.println("The PCI Value for 4G Primary is : "+PCIValue4G_Nokia);
 		 
 		  //Fetch 4G Supported Primary Band 
 		  Thread.sleep(1000); BandPrimary4G_Nokia =
 		  driver.findElement(By.xpath("//div[@id=\"4gband\"]")).getText();
-		  System.out.println("The supported 4G Primary Band is : "+BandPrimary4G_Nokia)
-		  ;
+		  System.out.println("The supported 4G Primary Band is : "+BandPrimary4G_Nokia);
 		  
-		 
 		  //Fetch 4G Secondary Cell 1 If available
 		  
 		  try { 
@@ -126,254 +117,231 @@ public class Test001_NokiaFastMileTest {
 		 
 		  //Fetch Secondary Cell 1 PCI 
 		  Thread.sleep(1000);
-PCISecondaryCell1 =
-		  driver.findElement(By.
-		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[1]/td[2]"
-		  )).getText(); System.out.println("The PCI value for "+SecondaryCell1+" : "
-		  +PCISecondaryCell1);
+		  PCISecondaryCell1 = driver.findElement(By.xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[1]/td[2]")).getText(); 
+		  System.out.println("The PCI value for "+SecondaryCell1+" : "+PCISecondaryCell1);
 		  
 		  //Fetch 4G Supported Secondary Band Cell 1 
 		  Thread.sleep(1000);
-		  BandSecondaryCell1_4G_Nokia = driver.findElement(By.
-		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[1]/td[3]"
-		  )).getText();
-		  System.out.println("The supported 4G band for "+SecondaryCell1+" : "
-		  +BandSecondaryCell1_4G_Nokia); } catch (Exception e) { // TODO Auto-generated
-		   System.out.println("Secondary Cell not Available");
-		  
-		  }
-		  
-		  //Fetch 4G Secondary Cell 2 If available
-		  
-		  try { 
-			  Thread.sleep(1000); SecondaryCell2 = driver.findElement(By.
-		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[2]/td[1]"
-		  )).getText();
-		  System.out.println("The secondary cell available is : "+SecondaryCell2);
-		  
-		  //Fetch Secondary Cell 2 PCI 
-		  Thread.sleep(1000); PCISecondaryCell2 =
-		  driver.findElement(By.
-		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[2]/td[2]"
-		  )).getText(); System.out.println("The PCI value for "+SecondaryCell2+" : "
-		  +PCISecondaryCell2);
-		  
-		  //Fetch 4G Supported Secondary Band Cell 2 
-		  Thread.sleep(1000);
-		  BandSecondaryCell2_4G_Nokia = driver.findElement(By.
-		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[2]/td[3]"
-		  )).getText();
-		  System.out.println("The supported 4G band for "+SecondaryCell2+" : "
-		  +BandSecondaryCell2_4G_Nokia); } 
+		  BandSecondaryCell1_4G_Nokia = driver.findElement(By.xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[1]/td[3]")).getText();
+		  System.out.println("The supported 4G band for "+SecondaryCell1+" : "+BandSecondaryCell1_4G_Nokia); } 
 		  catch (Exception e) { // TODO Auto-generated
-			 {  System.out.println("Secondary Cell 2 not Available");
-		  
+		   System.out.println("Secondary Cell not Available");	  
 		  }
 		  
-		  //Fetch 4G Secondary Cell 3 If available
+//Fetch 4G Secondary Cell 2 If available
 		  
 		  try { 
 			  Thread.sleep(1000); 
-			  SecondaryCell3 = driver.findElement(By.
-		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[3]/td[1]"
-		  )).getText();
+			  SecondaryCell2 = driver.findElement(By.xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[2]/td[1]")).getText();
+		  System.out.println("The secondary cell available is : "+SecondaryCell2);
+		  
+		  //Fetch Secondary Cell 2 PCI 
+		  Thread.sleep(1000); 
+		  PCISecondaryCell2 = driver.findElement(By.xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[2]/td[2]")).getText(); 
+		  System.out.println("The PCI value for "+SecondaryCell2+" : "+PCISecondaryCell2);
+		  
+		  //Fetch 4G Supported Secondary Band Cell 2 
+		  Thread.sleep(1000);
+		  BandSecondaryCell2_4G_Nokia = driver.findElement(By.xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[2]/td[3]")).getText();
+		  System.out.println("The supported 4G band for "+SecondaryCell2+" : "+BandSecondaryCell2_4G_Nokia); 
+		  } 
+		  catch (Exception e) { // TODO Auto-generated
+			   System.out.println("Secondary Cell 2 not Available");
+		  }
+		  
+//Fetch 4G Secondary Cell 3 If available
+		  
+		  try { 
+			  Thread.sleep(1000); 
+			  SecondaryCell3 = driver.findElement(By.xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[3]/td[1]")).getText();
 		  System.out.println("The secondary cell available is : "+SecondaryCell3);
 		  
 		  //Fetch Secondary Cell 3 PCI 
 		  Thread.sleep(1000); 
-		  PCISecondaryCell3 =
-		  driver.findElement(By.
-		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[3]/td[2]"
-		  )).getText(); System.out.println("The PCI value for "+SecondaryCell3+" : "
-		  +PCISecondaryCell3);
+		  PCISecondaryCell3 =driver.findElement(By.xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[3]/td[2]")).getText(); 
+		  System.out.println("The PCI value for "+SecondaryCell3+" : "+PCISecondaryCell3);
 		  
 		  //Fetch 4G Supported Secondary Band Cell 2 
 		  Thread.sleep(1000);
 		  BandSecondaryCell3_4G_Nokia = driver.findElement(By.
-		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[3]/td[3]"
-		  )).getText();
+		  xpath("//td[text()=\" Carrier Aggregation - Downlink\"]/parent::tr/following-sibling::tr[3]/td[3]")).getText();
 		  
-		  System.out.println("The supported 4G band for "+SecondaryCell3+" : "
-		  +BandSecondaryCell3_4G_Nokia);
+		  System.out.println("The supported 4G band for "+SecondaryCell3+" : "+BandSecondaryCell3_4G_Nokia);
 		  
 		  } catch (Exception e7) 
 		  { 
 			  System.out.println("Secondary Cell 3 not Available");
 		  }
 		 
-		 
-
-		// Restart
-		Thread.sleep(1000);
-		System.out.println("Restarting from UI");
-		driver.findElement(By.xpath("//a[text()=\" System \"]")).click();
-		Thread.sleep(1000);
-		driver.findElement(By.xpath("//a[text()=\" System \"]/parent::div/following-sibling::app-menu[1]/div/a"))
-				.click();
-
-		try {
-			String Login = driver.findElement(By.xpath("//div[text()=\"Log in \"]")).getText();
-			System.out.println("Current Page is : " + Login + " /. User needs to login to Admin");
-			System.out.println("Logging into Admin");
-
-			driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).click();
-			driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).sendKeys("admin");
+		  
+			// Restart
 			Thread.sleep(1000);
-			driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).click();
-			driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).sendKeys("daa9828399");
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//span[text()=\"Log in\"]")).click();
-
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//div[text()=\"Reboot\"]")).click();
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//button[text()=\"Yes\"]")).click();
-			Thread.sleep(1000);
-			String RestartingText = driver
-					.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
-			System.out.println(RestartingText);
-
-		} catch (Exception e1) {
-			System.out.println("User is already logged into admin. Proceeding with restart ...");
+			System.out.println("Restarting from UI");
+			driver.findElement(By.xpath("//a[text()=\" System \"]")).click();
 			Thread.sleep(1000);
 			driver.findElement(By.xpath("//a[text()=\" System \"]/parent::div/following-sibling::app-menu[1]/div/a"))
 					.click();
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//div[text()=\"Reboot\"]")).click();
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//button[text()=\"Yes\"]")).click();
-			Thread.sleep(1000);
-			String RestartingText = driver
-					.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
-			System.out.println(RestartingText);
 
-		}
-		// Waiting for Status button to be clickable
-
-		for (int i = 0; i < 3; i++) {
 			try {
-				WebDriverWait wait = new WebDriverWait(driver, 200);
-				WebElement Status = wait
-						.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()=\" Status \"]")));
-				Status.click();
-				Thread.sleep(4000);
-				driver.findElement(By.xpath("//a[text()=\" Cellular \"]")).click();
-				Thread.sleep(1000);
+				String Login = driver.findElement(By.xpath("//div[text()=\"Log in \"]")).getText();
+				System.out.println("Current Page is : " + Login + " /. User needs to login to Admin");
+				System.out.println("Logging into Admin");
+
 				driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).click();
-				Thread.sleep(1000);
 				driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).sendKeys("admin");
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).click();
-				Thread.sleep(1000);
 				driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).sendKeys("daa9828399");
 				Thread.sleep(1000);
 				driver.findElement(By.xpath("//span[text()=\"Log in\"]")).click();
-				break;
-			} catch (Exception e4) {
-				System.out.println("Restart is still in progress");
-				driver.navigate().refresh();
-				continue;
-			}
-		}
 
-		// Checking if 5G/4G is reconnected after restart
-
-		try {
-			loop_Overview: for (int j = 0; j < 5; j++) {
 				Thread.sleep(1000);
-				driver.findElement(By.xpath("//a[text()=\" Overview \"]")).click();
-				Thread.sleep(4000);
-				Overview5GConnectionStatus = driver.findElement(By.xpath(
-						"//div[text()=\"5G Signal \"]/following-sibling::mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title/div"))
-						.getText();
-				Thread.sleep(2000);
-				Overview4GConnectionStatus = driver.findElement(By.xpath(
-						"//div[text()=\"4G Signal \"]/following-sibling::mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title/div"))
-						.getText();
+				driver.findElement(By.xpath("//div[text()=\"Reboot\"]")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//button[text()=\"Yes\"]")).click();
+				Thread.sleep(1000);
+				String RestartingText = driver.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
+				System.out.println(RestartingText);
 
-				if (Overview5GConnectionStatus.equalsIgnoreCase("Connected")) {
-					System.out.println("Test pass. 5G status is : " + Overview5GConnectionStatus);
+			} catch (Exception e1) {
+				System.out.println("User is already logged into admin. Proceeding with restart ...");
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//a[text()=\" System \"]/parent::div/following-sibling::app-menu[1]/div/a")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//div[text()=\"Reboot\"]")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//button[text()=\"Yes\"]")).click();
+				Thread.sleep(1000);
+				String RestartingText = driver.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
+				System.out.println(RestartingText);
+			}
+			
+			// Waiting for Status button to be clickable
 
-				} else {
-					System.out.println("Retrying since 5G status is " + Overview5GConnectionStatus);
-				}
-
-				if (Overview4GConnectionStatus.equalsIgnoreCase("Connected")) {
-					System.out.println("Test pass. 4G status is : " + Overview4GConnectionStatus);
+			for (int i = 0; i < 3; i++) {
+				try {
+					Thread.sleep(5000);
+					WebDriverWait wait = new WebDriverWait(driver, 60);
+					WebElement Status = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()=\" Status \"]")));
+					
+					Thread.sleep(15000);
+					Status.click();
+					Thread.sleep(4000);
+					driver.findElement(By.xpath("//a[text()=\" Cellular \"]")).click();
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).click();
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).sendKeys("admin");
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).click();
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).sendKeys("daa9828399");
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//span[text()=\"Log in\"]")).click();
 					break;
-
-				} else {
-					System.out.println("Retrying since 4G status is " + Overview4GConnectionStatus);
+				} catch (Exception e4) {
+					System.out.println("Restart is still in progress");
+					driver.navigate().refresh();
 					continue;
 				}
-
 			}
-		} catch (Exception e1) {
-			System.out.println("Unable to fetch the Connection Status. Please Retry...");
+
+
+			// Checking if 5G/4G is reconnected after restart
+
 			
+			loop_Overview: for (int j = 0; j < 5; j++) {
+			try {
+				
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//a[text()=\" Overview \"]")).click();
+					Thread.sleep(4000);
+					Overview5GConnectionStatus = driver.findElement(By.xpath("//div[text()=\"5G Signal \"]/following-sibling::mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title/div")).getText();
+					Thread.sleep(2000);
+					Overview4GConnectionStatus = driver.findElement(By.xpath("//div[text()=\"4G Signal \"]/following-sibling::mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title/div")).getText();
 
-		}
+					if (Overview5GConnectionStatus.equalsIgnoreCase("Connected")) {
+						System.out.println("Test pass. 5G status is : " + Overview5GConnectionStatus);
 
-		// Factory Reset
+					} else {
+						System.out.println("Retrying since 5G status is " + Overview5GConnectionStatus);
+					}
 
-		// ----------------------------------
+					if (Overview4GConnectionStatus.equalsIgnoreCase("Connected")) {
+						System.out.println("Test pass. 4G status is : " + Overview4GConnectionStatus);
+						break;
 
-		System.out.println("Running Test 2 --------Throughput (Speedtest CLI)--------");
-		// Executing CMD
-		System.out.println("Running Speedtest CLI command ......");
-		try {
-			Process process = Runtime.getRuntime().exec("cmd /c speedtest -s 5539", null, new File(
-					"C:\\Users\\gaurav.prakash\\OneDrive - 2degrees New Zealand Limited\\Gaurav 2 Degrees\\Projects\\Speedtest CLI"));
-			StringBuilder output = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+					} else {
+						System.out.println("Retrying since 4G status is " + Overview4GConnectionStatus);
+						continue;
+					}
 
-			String line;
+				}
+			 catch (Exception e1) {
+				System.out.println("Unable to fetch the Connection Status. Retrying...");
+				
 
-			while ((line = reader.readLine()) != null) {
-				output.append(line + "\n");
 			}
-			int exitVal = process.waitFor();
-			if (exitVal == 0) {
-				System.out.println(output);
-			} else {
-				System.out.println("Something wrong in executing command");
+			}
+			
+			
+			
+			// ----------------------------------
+
+			System.out.println("Running Test 2 --------Throughput (Speedtest CLI)--------");
+			// Executing CMD
+			System.out.println("Running Speedtest CLI command ......");
+			try {
+				Process process = Runtime.getRuntime().exec("cmd /c speedtest", null, new File("C:\\Users\\gaurav.prakash\\OneDrive - 2degrees New Zealand Limited\\Gaurav 2 Degrees\\Projects\\Speedtest CLI"));
+				StringBuilder output = new StringBuilder();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+				String line;
+
+				while ((line = reader.readLine()) != null) {
+					output.append(line + "\n");
+				}
+				int exitVal = process.waitFor();
+				if (exitVal == 0) {
+					System.out.println(output);
+				} else {
+					System.out.println("Something wrong in executing command");
+				}
+
+			} catch (Exception e5) {
+				
+				
 			}
 
-		} catch (Exception e5) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			// ---------------------------
 
-		// ---------------------------
+			System.out.println("Running Test 3 --------Throughput (Iperf)--------");
+			System.out.println("Running IperfI command (Download)......");
+			try {
+				Process process2 = Runtime.getRuntime().exec("cmd /c iperf3 -c 111.69.32.122 -R", null, new File("C:\\Users\\gaurav.prakash\\OneDrive - 2degrees New Zealand Limited\\Gaurav 2 Degrees\\Projects\\iperf-3.1.3"));
+				StringBuilder output = new StringBuilder();
+				BufferedReader reader = new BufferedReader(new InputStreamReader(process2.getInputStream()));
 
-		System.out.println("Running Test 3 --------Throughput (Iperf)--------");
-		System.out.println("Running IperfI command (Download)......");
-		try {
-			Process process2 = Runtime.getRuntime().exec("cmd /c iperf3 -c 111.69.32.122 -R", null, new File(
-					"C:\\Users\\gaurav.prakash\\OneDrive - 2degrees New Zealand Limited\\Gaurav 2 Degrees\\Projects\\iperf-3.1.3"));
-			StringBuilder output = new StringBuilder();
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process2.getInputStream()));
+				String line;
 
-			String line;
+				while ((line = reader.readLine()) != null) {
+					output.append(line + "\n");
+				}
+				int exitVal = process2.waitFor();
+				if (exitVal == 0) {
+					System.out.println(output);
+				} else {
+					System.out.println("Something wrong in executing command");
+				}
 
-			while ((line = reader.readLine()) != null) {
-				output.append(line + "\n");
+			} catch (Exception e6) {
+
 			}
-			int exitVal = process2.waitFor();
-			if (exitVal == 0) {
-				System.out.println(output);
-			} else {
-				System.out.println("Something wrong in executing command");
-			}
-
-		} catch (Exception e6) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		driver.quit();
-
-	}
+			
+			driver.quit();
+			
+		  
+   
 
 	}
 }
