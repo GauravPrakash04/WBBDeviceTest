@@ -38,13 +38,15 @@ public class Test001_NokiaFastMileTest {
 
 		String Overview5GConnectionStatus=null;
 		String Overview4GConnectionStatus=null;
+		String RestartingText=null;
+		String RebootWarning=null;
 		
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\gaurav.prakash\\OneDrive - 2degrees New Zealand Limited\\Gaurav 2 Degrees\\Projects\\Automation GP\\chromedriver_win32\\chromedriver.exe");
 
 		WebDriver driver = new ChromeDriver();
 		driver.get("http://192.168.1.1");
-		// driver.manage().window().maximize();
+		driver.manage().window().maximize();
 		
 		 System.out.println("Running Test 1 --------CA--------");
 		 
@@ -173,120 +175,9 @@ public class Test001_NokiaFastMileTest {
 			  System.out.println("Secondary Cell 3 not Available");
 		  }
 		 
-		  
-			// Restart
-			Thread.sleep(1000);
-			System.out.println("Restarting from UI");
-			driver.findElement(By.xpath("//a[text()=\" System \"]")).click();
-			Thread.sleep(1000);
-			driver.findElement(By.xpath("//a[text()=\" System \"]/parent::div/following-sibling::app-menu[1]/div/a"))
-					.click();
-
-			try {
-				String Login = driver.findElement(By.xpath("//div[text()=\"Log in \"]")).getText();
-				System.out.println("Current Page is : " + Login + " /. User needs to login to Admin");
-				System.out.println("Logging into Admin");
-
-				driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).click();
-				driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).sendKeys("admin");
-				Thread.sleep(1000);
-				driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).click();
-				driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).sendKeys("daa9828399");
-				Thread.sleep(1000);
-				driver.findElement(By.xpath("//span[text()=\"Log in\"]")).click();
-
-				Thread.sleep(1000);
-				driver.findElement(By.xpath("//div[text()=\"Reboot\"]")).click();
-				Thread.sleep(1000);
-				driver.findElement(By.xpath("//button[text()=\"Yes\"]")).click();
-				Thread.sleep(1000);
-				String RestartingText = driver.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
-				System.out.println(RestartingText);
-
-			} catch (Exception e1) {
-				System.out.println("User is already logged into admin. Proceeding with restart ...");
-				Thread.sleep(1000);
-				driver.findElement(By.xpath("//a[text()=\" System \"]/parent::div/following-sibling::app-menu[1]/div/a")).click();
-				Thread.sleep(1000);
-				driver.findElement(By.xpath("//div[text()=\"Reboot\"]")).click();
-				Thread.sleep(1000);
-				driver.findElement(By.xpath("//button[text()=\"Yes\"]")).click();
-				Thread.sleep(1000);
-				String RestartingText = driver.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
-				System.out.println(RestartingText);
-			}
-			
-			// Waiting for Status button to be clickable
-
-			for (int i = 0; i < 3; i++) {
-				try {
-					Thread.sleep(5000);
-					WebDriverWait wait = new WebDriverWait(driver, 60);
-					WebElement Status = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()=\" Status \"]")));
-					
-					Thread.sleep(15000);
-					Status.click();
-					Thread.sleep(4000);
-					driver.findElement(By.xpath("//a[text()=\" Cellular \"]")).click();
-					Thread.sleep(1000);
-					driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).click();
-					Thread.sleep(1000);
-					driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).sendKeys("admin");
-					Thread.sleep(1000);
-					driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).click();
-					Thread.sleep(1000);
-					driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).sendKeys("daa9828399");
-					Thread.sleep(1000);
-					driver.findElement(By.xpath("//span[text()=\"Log in\"]")).click();
-					break;
-				} catch (Exception e4) {
-					System.out.println("Restart is still in progress");
-					driver.navigate().refresh();
-					continue;
-				}
-			}
-
-
-			// Checking if 5G/4G is reconnected after restart
-
-			
-			loop_Overview: for (int j = 0; j < 5; j++) {
-			try {
-				
-					Thread.sleep(1000);
-					driver.findElement(By.xpath("//a[text()=\" Overview \"]")).click();
-					Thread.sleep(4000);
-					Overview5GConnectionStatus = driver.findElement(By.xpath("//div[text()=\"5G Signal \"]/following-sibling::mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title/div")).getText();
-					Thread.sleep(2000);
-					Overview4GConnectionStatus = driver.findElement(By.xpath("//div[text()=\"4G Signal \"]/following-sibling::mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title/div")).getText();
-
-					if (Overview5GConnectionStatus.equalsIgnoreCase("Connected")) {
-						System.out.println("Test pass. 5G status is : " + Overview5GConnectionStatus);
-
-					} else {
-						System.out.println("Retrying since 5G status is " + Overview5GConnectionStatus);
-					}
-
-					if (Overview4GConnectionStatus.equalsIgnoreCase("Connected")) {
-						System.out.println("Test pass. 4G status is : " + Overview4GConnectionStatus);
-						break;
-
-					} else {
-						System.out.println("Retrying since 4G status is " + Overview4GConnectionStatus);
-						continue;
-					}
-
-				}
-			 catch (Exception e1) {
-				System.out.println("Unable to fetch the Connection Status. Retrying...");
-				
-
-			}
-			}
 			
 			
-			
-			// ----------------------------------
+			// Speedtest CLI ---
 
 			System.out.println("Running Test 2 --------Throughput (Speedtest CLI)--------");
 			// Executing CMD
@@ -313,7 +204,7 @@ public class Test001_NokiaFastMileTest {
 				
 			}
 
-			// ---------------------------
+			// IPerf-------------
 
 			System.out.println("Running Test 3 --------Throughput (Iperf)--------");
 			System.out.println("Running IperfI command (Download)......");
@@ -337,6 +228,172 @@ public class Test001_NokiaFastMileTest {
 			} catch (Exception e6) {
 
 			}
+			
+			
+			
+			
+			  
+				// Restart ----------
+				Thread.sleep(1000);
+				System.out.println("Restarting from UI");
+				driver.findElement(By.xpath("//a[text()=\" System \"]")).click();
+				Thread.sleep(1000);
+				driver.findElement(By.xpath("//a[text()=\" System \"]/parent::div/following-sibling::app-menu[1]/div/a")).click();
+
+				try {
+					String Login = driver.findElement(By.xpath("//div[text()=\"Log in \"]")).getText();
+					System.out.println("Current Page is : " + Login + " /. User needs to login to Admin");
+					System.out.println("Logging into Admin");
+
+					driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).click();
+					driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).sendKeys("admin");
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).click();
+					driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).sendKeys("daa9828399");
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//span[text()=\"Log in\"]")).click();
+
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//div[text()=\"Reboot\"]")).click();
+					Thread.sleep(1000);
+					
+					RebootWarning = driver.findElement(By.xpath("//div[contains(text(),\"Warning: Your network will be offline for around 2 minutes.\")]")).getText();
+					System.out.println(RebootWarning);
+					Thread.sleep(1000);
+					
+					driver.findElement(By.xpath("//button[text()=\"Yes\"]")).click();
+					Thread.sleep(1000);
+					RestartingText = driver.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
+					System.out.println(RestartingText);
+
+				} catch (Exception e1) {
+					System.out.println("User is already logged into admin. Proceeding with restart ...");
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//a[text()=\" System \"]/parent::div/following-sibling::app-menu[1]/div/a")).click();
+					Thread.sleep(1000);
+					driver.findElement(By.xpath("//div[text()=\"Reboot\"]")).click();
+					Thread.sleep(1000);
+					
+					RebootWarning = driver.findElement(By.xpath("//div[contains(text(),\"Warning: Your network will be offline for around 2 minutes.\")]")).getText();
+					System.out.println(RebootWarning);
+					Thread.sleep(1000);
+					
+					driver.findElement(By.xpath("//button[text()=\"Yes\"]")).click();
+					Thread.sleep(1000);
+					RestartingText = driver.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
+					System.out.println(RestartingText);
+				}
+				
+				
+				//Waiting for reboot to complete
+				//If "This could take up to 2 minutes" message showing do nothing and continue looping
+				
+				try {
+					do {
+						RestartingText=null;
+						Thread.sleep(15000);
+						RestartingText = driver.findElement(By.xpath("//div[contains(text(),\"This could take up to 2 minutes. \")]")).getText();
+						System.out.println("Please wait.Restart is in progress....");
+					}
+					while (RestartingText!=null);
+				} catch (Exception e10) {
+					System.out.println("Restart Completed");
+					driver.navigate().refresh();
+					Thread.sleep(5000);
+					driver.navigate().refresh();
+					Thread.sleep(5000);
+				}
+					
+				
+				
+				
+				
+/*			
+				
+				// Waiting for Status button to be clickable
+
+				for (int i = 0; i < 3; i++) {
+					try {
+						Thread.sleep(5000);
+						WebDriverWait wait = new WebDriverWait(driver, 60);
+						WebElement Status = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a[text()=\" Status \"]")));
+						
+						Thread.sleep(15000);
+						Status.click();
+						Thread.sleep(4000);
+						driver.findElement(By.xpath("//a[text()=\" Cellular \"]")).click();
+						Thread.sleep(1000);
+						driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).click();
+						Thread.sleep(1000);
+						driver.findElement(By.xpath("//input[@formcontrolname=\"username\"]")).sendKeys("admin");
+						Thread.sleep(1000);
+						driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).click();
+						Thread.sleep(1000);
+						driver.findElement(By.xpath("//input[@formcontrolname=\"password\"]")).sendKeys("daa9828399");
+						Thread.sleep(1000);
+						driver.findElement(By.xpath("//span[text()=\"Log in\"]")).click();
+						break;
+					} catch (Exception e4) {
+						System.out.println("Restart is still in progress. Re-checking for : "+i+" time");
+						driver.navigate().refresh();
+						continue;
+					}
+				}
+
+*/
+				
+				
+				
+				
+				
+				
+				
+				
+				// Checking if 5G/4G is reconnected after restart
+
+				
+				
+				for (int j = 0; j < 5; j++) {
+				try {
+					
+						Thread.sleep(5000);
+						driver.findElement(By.xpath("//a[text()=\" Overview \"]")).click();
+						Thread.sleep(4000);
+						Overview5GConnectionStatus = driver.findElement(By.xpath("//div[text()=\"5G Signal \"]/following-sibling::mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title/div")).getText();
+						Thread.sleep(2000);
+						Overview4GConnectionStatus = driver.findElement(By.xpath("//div[text()=\"4G Signal \"]/following-sibling::mat-expansion-panel/mat-expansion-panel-header/span/mat-panel-title/div")).getText();
+
+						if (Overview5GConnectionStatus.equalsIgnoreCase("Connected")) {
+							System.out.println("Test pass. 5G status is : " + Overview5GConnectionStatus);
+
+						} else {
+							System.out.println("Retrying since 5G status is " + Overview5GConnectionStatus);
+							driver.navigate().refresh();
+							continue;
+						}
+
+						if (Overview4GConnectionStatus.equalsIgnoreCase("Connected")) {
+							System.out.println("Test pass. 4G status is : " + Overview4GConnectionStatus);
+							break;
+
+						} else {
+							System.out.println("Retrying since 4G status is " + Overview4GConnectionStatus);
+							driver.navigate().refresh();
+							continue;
+						}
+
+					}
+				 catch (Exception e1) {
+					 
+					System.out.println("Unable to fetch the Connection Status. Retrying... "+j+" times");
+					driver.navigate().refresh();
+
+				}
+				}
+				
+			
+			
+			
 			
 			driver.quit();
 			
